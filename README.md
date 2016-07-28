@@ -16,7 +16,6 @@ use strict;
 use warnings;
 use v5.20;
 use ChipFiring;
-use Data::Dumper;
 
 my $graph = ChipFiring->new();
 $graph->from_links("0,1 0,2 0,3 0,4 1,2 3,4");
