@@ -1,2 +1,2 @@
 # chipfiring
-Chip Firing Code
+This is a perl module 
