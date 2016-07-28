@@ -389,7 +389,7 @@ sub all_rank1 {
         map {
             $rank1++ if ($_->[1] == 1);
             $rank2++ if ($_->[1] > 1);
-            $_->[1] . ':' . $_->[0]
+            $_->[0]
             } @{$divisors->{rank1}};
     $self->{time_interval} = $divisors->{time_interval}; 
     $self->{reduced_divisors} = $divisors->{reduced_divisors};
@@ -444,7 +444,7 @@ sub rank {
     my $self = shift;
     $self->_context();
     
-    my $rank = _rank([_div2array(shift())]);
+    my $rank = _rank([_div2array(shift())])->[0];
     
     _clean_context();
     
@@ -803,7 +803,7 @@ sub _all_divisors_iterator1 {
     my $previous_failure = 0;
     my $div_last = 0;
     my $is_finished;
-    my $burns;
+    my $burns = 1;
     
     my @div = _convert_div($ite);
     $div[0] += 1;
@@ -817,6 +817,7 @@ sub _all_divisors_iterator1 {
     while (1) {
         if ($burns and !_burn(0, \@div)) {
             $reduced_divisors++;
+            
             my $rank = _rank(\@div);
                 if ($rank->[0] > 0) {
                     my $div_string = array2div(@div);
@@ -862,8 +863,8 @@ sub _all_divisors_iterator1 {
         #convert the "last" place to a div place. Check if we fullfill the degree condition. If we failed in the previous one, check we don't fail now.
         $div[0] += 1;
         $div_last = $last - $c + 1;
-        next if ($div[$previous_failure] >= $degrees[$previous_failure] and $previous_failure != 0 and $burns = 0);
-        if ($div[$div_last] >= $degrees[$div_last] and $div_last != 0 and $burns = 0) {
+        next if ($div[$previous_failure] >= $degrees[$previous_failure] and $previous_failure != 0 and !($burns = 0));
+        if ($div[$div_last] >= $degrees[$div_last] and $div_last != 0 and !($burns = 0)) {
             $previous_failure = $div_last;
             next;
         }
