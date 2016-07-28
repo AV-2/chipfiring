@@ -32,8 +32,8 @@ say "The reduction of the first rank-1 divisor with respect to v4 is ", $graph->
 
 
 Running the program yields the following output:
-The adjacency matrix is
 ```
+The adjacency matrix is
 0	1	1	1	1
 1	0	1	0	0
 1	1	0	0	0
